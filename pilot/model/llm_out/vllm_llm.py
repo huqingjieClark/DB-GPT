@@ -57,7 +57,8 @@ async def generate_stream(
         temperature=temperature,
         top_p=top_p,
         use_beam_search=False,
-        max_tokens=max_new_tokens,
+        max_tokens=max_new_tokens,        
+        stop_token_ids=stop_token_ids,
         **gen_params
     )
 

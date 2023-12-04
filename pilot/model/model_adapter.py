@@ -602,8 +602,8 @@ class VLLMModelAdaperWrapper(LLMModelAdaper):
 
     def get_default_conv_template(
         self, model_name: str, model_path: str
-    ) -> "Conversation":
-        return _auto_get_conv_template(model_name, model_path)
+    ) -> "Conversation":        
+        return get_conv_template("yi-34b-chat")
 
     def __str__(self) -> str:
         return "{}.{}".format(self.__class__.__module__, self.__class__.__name__)
@@ -657,4 +657,17 @@ register_conv_template(
         stop_str=["</s>", "<|endoftext|>"],
     ),
     override=True,
+)
+
+register_conv_template(
+    Conversation(
+        name="yi-34b-chat",
+        roles=("<|im_start|>user", "<|im_start|>assistant"),
+        sep_style=SeparatorStyle.CHATML,
+        messages=(),
+        offset=0,
+        sep="<|im_end|>",
+        stop_token_ids=[7],  # "<|im_end|>"
+        stop_str="<|endoftext|>",
+    )
 )
